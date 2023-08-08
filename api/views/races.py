@@ -1,13 +1,25 @@
-from rest_framework import permissions, serializers, viewsets
+from rest_framework import permissions, serializers, viewsets, status
+from rest_framework.decorators import action
 from rest_framework.response import Response
-from api.models import Race
+from api.models.race import Race
+from api.models.race_registration import RaceRegistration
 from api.views.pagination import APIPaginator
+from api.views.users import UserSerializer
 
 
 class RaceSerializer(serializers.ModelSerializer):
     class Meta:
         model = Race
         fields = ("id", "name", "race_start", "city")
+
+
+class RaceRegistrationSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = RaceRegistration
+        fields = ("race", "user", "registration_time")
+
+    user = UserSerializer(read_only=True)
+    race = RaceSerializer(read_only=True)
 
 
 class RaceViewSet(viewsets.ModelViewSet):
@@ -30,3 +42,20 @@ class RaceViewSet(viewsets.ModelViewSet):
         race = self.get_object()
         serializer = self.get_serializer(race)
         return Response(serializer.data)
+
+    @action(detail=True, methods=["POST"])
+    def signup(self, request, pk=None):
+        race = self.get_object()
+        user = request.user
+
+        if race.participants.filter(raceregistration__user=user).exists():
+            return Response(
+                {"detail": "You are already signed up for this race."},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+
+        rr = RaceRegistration(race=race, user=user)
+        rr.save()
+
+        serializer = RaceRegistrationSerializer(rr)
+        return Response(serializer.data, status=status.HTTP_201_CREATED)

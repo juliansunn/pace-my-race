@@ -1,15 +1,14 @@
 from django.db import models
+import logging
+
+logger = logging.getLogger(__name__)
 
 
 class Race(models.Model):
-    UNIT_CHOICES = (
-        ("km", "Kilometers"),
-        ("mi", "Miles"),
-    )
-
     name = models.CharField(max_length=255, default=None)
-    distance = models.DecimalField(max_digits=5, decimal_places=2, default=0)
-    distance_unit = models.CharField(max_length=2, choices=UNIT_CHOICES, default="km")
+    type = models.ForeignKey(
+        "RaceType", blank=True, null=True, default=None, on_delete=models.SET_NULL
+    )
     description = models.TextField(null=True, blank=True, default=None)
     registration_open = models.BooleanField(default=True)
     registration_deadline = models.DateTimeField(default=None)

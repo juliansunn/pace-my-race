@@ -33,16 +33,16 @@ DEBUG = env("DEBUG")
 DEBUG_TOOLBAR = env("DEBUG_TOOLBAR")
 ON_SERVER = env("ON_SERVER", default=True)
 
-ALLOWED_HOSTS = ["0.0.0.0", "run-pacer.herokuapp.com", "127.0.0.1", "localhost"]
+ALLOWED_HOSTS = [
+    "0.0.0.0",
+    "pace-my-race-a48bb9c0296a.herokuapp.com",
+    "127.0.0.1",
+    "localhost",
+]
 
 CORS_ALLOW_CREDENTIALS = True
-if ON_SERVER:
-    # CORS_ORIGIN_REGEX_WHITELIST = env.list(
-    #     "CORS_ORIGIN_REGEX_WHITELIST", default=["localhost:4000", "127.0.0.1:4000"]
-    # )
-    CORS_ORIGIN_ALLOW_ALL = True
-else:
-    CORS_ORIGIN_ALLOW_ALL = True
+
+CORS_ORIGIN_ALLOW_ALL = True
 
 CLERK_SECRET_KEY = env("CLERK_SECRET_KEY")
 CLERK_API_URL = "https://api.clerk.dev/v1"
@@ -64,7 +64,6 @@ THIRD_PARTY_APPS = [
     "corsheaders",
     "django_extensions",
     "rest_framework",
-    "rest_framework_simplejwt.token_blacklist",
 ]
 OUR_APPS = [
     "api",
@@ -122,17 +121,6 @@ DATABASES = {
 
 db_from_env = dj_database_url.config(conn_max_age=600)
 DATABASES["default"].update(db_from_env)
-
-# DATABASES = {
-#     "default": {
-#         "ENGINE": "django.db.backends.postgresql_psycopg2",
-#         "NAME": "db",
-#         "USER": "mpkksljslzbqfa",
-#         "PASSWORD": "e2d1beb69157782d5b8443fb1066cb73da16b07bdc98ac2324c032accc442aa2",
-#         "HOST": "ec2-34-197-91-131.compute-1.amazonaws.com",
-#         "PORT": "5432",
-#     }
-# }
 
 # Password validation
 # https://docs.djangoproject.com/en/2.0/ref/settings/#auth-password-validators
@@ -216,19 +204,10 @@ REST_FRAMEWORK = {
     "PAGE_SIZE": 25,
     "DEFAULT_AUTHENTICATION_CLASSES": (
         "app.middleware.JWTAuthenticationMiddleware",
-        "rest_framework_simplejwt.authentication.JWTAuthentication",
         "rest_framework.authentication.BasicAuthentication",
     ),
 }
 
-# JWT Settings
-SIMPLE_JWT = {
-    "ACCESS_TOKEN_LIFETIME": timedelta(hours=24),
-    "REFRESH_TOKEN_LIFETIME": timedelta(days=30),
-}
-JWT_COOKIE_NAME = env.str("JWT_COOKIE_NAME", default="refresh_token")
-JWT_COOKIE_SECURE = env.bool("JWT_COOKIE_SECURE", default=False)
-JWT_COOKIE_SAMESITE = env.str("JWT_COOKIE_SAMESITE", default="Lax")
 
 if ON_SERVER:
     # HTTPS

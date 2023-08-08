@@ -4,7 +4,7 @@ from django.urls import include, path
 
 from rest_framework import routers
 from api.views.races import RaceViewSet
-from api.views import ping, profile
+from api.views import ping, users
 from . import jwt_views
 
 
@@ -12,11 +12,12 @@ admin.autodiscover()
 
 router = routers.DefaultRouter()
 router.register(r"races", RaceViewSet, basename="races")
+router.register(r"users", users.UserViewSet, basename="users")
 
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("api/", include(router.urls)),
-    path("me/", profile.Profile.as_view(), name="me"),
+    path("me/", users.Profile.as_view(), name="me"),
     path("login/", jwt_views.Login.as_view(), name="login"),
     path("register/", jwt_views.Register.as_view(), name="register"),
     path("token/refresh/", jwt_views.RefreshTokenView.as_view(), name="token-refresh"),

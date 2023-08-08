@@ -86,10 +86,9 @@ class ClerkSDK:
         jwks_data = cache.get(settings.CACHE_KEY)
         if not jwks_data:
             response = requests.get(settings.CLERK_FRONTEND_API_URL)
+            print(response.json())
             if response.status_code == 200:
                 jwks_data = response.json()
-                print("JWKS Data: ", "* " * 30)
-                print(jwks_data)
                 cache.set(settings.CACHE_KEY, jwks_data)  # cache indefinitely
             else:
                 raise AuthenticationFailed("Failed to fetch JWKS.")
