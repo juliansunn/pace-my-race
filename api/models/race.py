@@ -9,6 +9,8 @@ class Race(models.Model):
     type = models.ForeignKey(
         "RaceType", blank=True, null=True, default=None, on_delete=models.SET_NULL
     )
+    link = models.URLField(null=True, blank=True, default=None)
+    image = models.ImageField(null=True, blank=True, default=None)
     description = models.TextField(null=True, blank=True, default=None)
     registration_open = models.BooleanField(default=True)
     registration_deadline = models.DateTimeField(default=None)

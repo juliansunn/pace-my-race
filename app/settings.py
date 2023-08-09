@@ -151,6 +151,9 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.0/howto/static-files/
 
+MEDIA_ROOT = os.path.join(BASE_DIR, "media")
+MEDIA_URL = "/media/"
+
 STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
 STATIC_URL = "/static/"
 django_heroku.settings(locals())
@@ -158,8 +161,6 @@ if ON_SERVER:
     del DATABASES["default"]["OPTIONS"]["sslmode"]
 
 if ON_SERVER:
-    STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
-    STATIC_URL = "/static/"
     MIDDLEWARE = tuple(
         ["whitenoise.middleware.WhiteNoiseMiddleware"] + list(MIDDLEWARE)
     )

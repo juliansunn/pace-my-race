@@ -1,4 +1,4 @@
-from rest_framework import permissions, serializers, viewsets, status
+from rest_framework import permissions, serializers, viewsets, status, parsers
 from rest_framework.decorators import action
 from rest_framework.response import Response
 from api.models.race import Race
@@ -10,7 +10,7 @@ from api.views.users import UserSerializer
 class RaceSerializer(serializers.ModelSerializer):
     class Meta:
         model = Race
-        fields = ("id", "name", "race_start", "city")
+        fields = "__all__"
 
 
 class RaceRegistrationSerializer(serializers.ModelSerializer):
@@ -27,6 +27,7 @@ class RaceViewSet(viewsets.ModelViewSet):
     serializer_class = RaceSerializer
     permission_classes = [permissions.IsAuthenticated]
     pagination_class = APIPaginator
+    parser_classes = [parsers.MultiPartParser, parsers.FormParser]
 
     def get_queryset(self):
         qs = Race.objects.all()
