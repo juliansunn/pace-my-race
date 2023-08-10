@@ -5,6 +5,10 @@ from django.conf.urls.static import static
 
 from rest_framework import routers
 from api.views.races import RaceViewSet
+from api.views.users import UserViewSet
+from api.views.training_groups import TrainingGroupViewSet
+from api.views.pacing_groups import PacingGroupViewSet
+from api.views.pacers import PacerViewSet
 from api.views import ping, users
 from . import jwt_views
 
@@ -13,7 +17,10 @@ admin.autodiscover()
 
 router = routers.DefaultRouter()
 router.register(r"races", RaceViewSet, basename="races")
-router.register(r"users", users.UserViewSet, basename="users")
+router.register(r"users", UserViewSet, basename="users")
+router.register(r"training-groups", TrainingGroupViewSet, basename="training-groups")
+router.register(r"pacing-groups", PacingGroupViewSet, basename="pacing-groups")
+router.register(r"pacers", PacerViewSet, basename="pacers")
 
 urlpatterns = [
     path("admin/", admin.site.urls),

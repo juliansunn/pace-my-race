@@ -1,7 +1,7 @@
 from django.db import models
 
 
-class State(models.Model):
+class City(models.Model):
     class StateAbbreviation(models.IntegerChoices):
         AL = 1, "Alabama"
         AK = 2, "Alaska"
@@ -59,26 +59,22 @@ class State(models.Model):
         WI = 54, "Wisconsin"
         WY = 55, "Wyoming"
 
-    name = models.IntegerField(choices=StateAbbreviation.choices)
-
-    @property
-    def state_name(self):
-        return self.StateAbbreviation(self.name).label
-
-    @property
-    def state_abbr(self):
-        return self.StateAbbreviation(self.name)._name_
-
-    def __str__(self):
-        return f"{self.state_name} - {self.state_abbr}"
-
-
-class City(models.Model):
+    state = models.IntegerField(choices=StateAbbreviation.choices)
     name = models.CharField(max_length=255, unique=True)
     zip_code = models.IntegerField(max_length=5, unique=True)
-    state = models.ForeignKey("State", related_name="cities", on_delete=models.CASCADE)
     latitude = models.FloatField(null=True, blank=True)
     longitude = models.FloatField(null=True, blank=True)
 
     def __str__(self):
-        return f"{self.name}, {State.StateAbbreviation(self.state.name)._name_}"
+        return f"{self.name}"
+
+    @property
+    def state_name(self):
+        return self.StateAbbreviation(self.state).label
+
+    @property
+    def state_abbr(self):
+        return self.StateAbbreviation(self.state)._name_
+
+    def __str__(self):
+        return f"{self.state_name} - {self.state_abbr}"

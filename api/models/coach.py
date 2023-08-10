@@ -12,9 +12,7 @@ class Coach(models.Model):
         EXPERT = 5, "Expert"
         PROFESSIONAL = 6, "Professional Runner"
 
-    user = models.OneToOneField(
-        "api.User", on_delete=models.CASCADE, related_name="coach"
-    )
+    user = models.ForeignKey("api.User", on_delete=models.CASCADE, related_name="coach")
     bio = models.TextField(blank=True)
     expertise = models.SmallIntegerField(
         max_length=2,

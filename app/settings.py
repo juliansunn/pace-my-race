@@ -1,4 +1,3 @@
-from datetime import timedelta
 import django_heroku
 import os
 import environ

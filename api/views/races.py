@@ -27,7 +27,6 @@ class RaceViewSet(viewsets.ModelViewSet):
     serializer_class = RaceSerializer
     permission_classes = [permissions.IsAuthenticated]
     pagination_class = APIPaginator
-    parser_classes = [parsers.MultiPartParser, parsers.FormParser]
 
     def get_queryset(self):
         qs = Race.objects.all()

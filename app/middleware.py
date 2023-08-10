@@ -24,7 +24,6 @@ class JWTAuthenticationMiddleware(BaseAuthentication):
         user = self.decode_jwt(token)
         clerk = ClerkSDK()
         info, found = clerk.fetch_user_info(user.clerk_id)
-        print(info)
         if not user:
             return None
         else:
@@ -86,7 +85,6 @@ class ClerkSDK:
         jwks_data = cache.get(settings.CACHE_KEY)
         if not jwks_data:
             response = requests.get(settings.CLERK_FRONTEND_API_URL)
-            print(response.json())
             if response.status_code == 200:
                 jwks_data = response.json()
                 cache.set(settings.CACHE_KEY, jwks_data)  # cache indefinitely
