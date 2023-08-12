@@ -1,17 +1,20 @@
-interface Coffee {
-	name: string;
-	description: string;
-	is_favorite: boolean;
-}
-
-interface Brand {
+interface Race {
 	id: number;
 	name: string;
-	is_favorite: boolean;
-	coffees: Coffee[];
+	link: string;
 	image: string;
+	description: string;
+	registration_open: boolean;
+	registration_deadline: Date;
+	race_start: Date;
+	type: string | null;
+	city: string | null;
+	participants: number[];
 }
 
-interface BrandsProps {
-	data: Brand[];
+interface RacesResponse {
+	page: number;
+	page_size: number;
+	total_count: number;
+	results: Race[];
 }

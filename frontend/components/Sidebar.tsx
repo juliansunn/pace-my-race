@@ -27,7 +27,7 @@ const upperRoutes = [
 		label: 'Dashboard',
 		icon: LayoutDashboard,
 		href: '/dashboard',
-		color: 'text-zinc-600',
+		color: '#52525b',
 		selectedColor: '#FF80E5FF'
 	},
 	{
@@ -40,7 +40,7 @@ const upperRoutes = [
 	{
 		label: 'My Events',
 		icon: Star,
-		href: '/my-events',
+		href: '/races',
 		color: '#52525b',
 		selectedColor: '#FF80E5FF'
 	},

@@ -60,10 +60,14 @@ class City(models.Model):
         WY = 55, "Wyoming"
 
     state = models.IntegerField(choices=StateAbbreviation.choices)
-    name = models.CharField(max_length=255, unique=True)
-    zip_code = models.IntegerField(max_length=5, unique=True)
+    name = models.CharField(max_length=255)
+    zip_code = models.IntegerField(max_length=5, null=True, blank=True)
     latitude = models.FloatField(null=True, blank=True)
     longitude = models.FloatField(null=True, blank=True)
+
+    class Meta:
+        # Add the unique_together option to enforce uniqueness across city, zip, and state
+        unique_together = ["name", "zip_code", "state"]
 
     def __str__(self):
         return f"{self.name}"
