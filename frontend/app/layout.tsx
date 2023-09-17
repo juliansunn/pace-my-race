@@ -5,6 +5,8 @@ import Background from '../components/theme/Background';
 import { ThemeProvider } from '../components/theme/ThemeContext';
 
 import './globals.css';
+import Providers from './utils/provider';
+import { AxiosInterceptor } from '../axios/axiosInstance';
 
 const font = Inter({ subsets: ['latin'] });
 
@@ -23,7 +25,11 @@ export default async function RootLayout({
 			<ClerkProvider>
 				<html lang="en" suppressHydrationWarning>
 					<Background>
-						<body className={font.className}>{children}</body>
+						<Providers>
+							<body className={font.className}>
+								<AxiosInterceptor>{children}</AxiosInterceptor>
+							</body>
+						</Providers>
 					</Background>
 				</html>
 			</ClerkProvider>

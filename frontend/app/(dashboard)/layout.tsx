@@ -9,7 +9,9 @@ const DashboardLayout = async ({ children }: { children: React.ReactNode }) => {
 			</div>
 			<main className="md:pl-72 pb-10">
 				<Navbar />
-				{children}
+				<div className="p-2 flex flex-col h-full w-full rounded-lg ">
+					{children}
+				</div>
 			</main>
 		</div>
 	);

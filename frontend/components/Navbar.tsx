@@ -5,9 +5,9 @@ import { MobileSidebar } from './MobileSidebar';
 
 const Navbar = () => {
 	return (
-		<div className="flex items-center p-4">
+		<div className="flex items-center p-4 sticky top-0 z-10">
 			<MobileSidebar />
-			<div className="flex w-full justify-end">
+			<div className="flex  w-full justify-end">
 				<UserButton afterSignOutUrl="/" />
 			</div>
 		</div>

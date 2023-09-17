@@ -8,6 +8,8 @@ import { cn } from '../../../lib/utils';
 
 import { tools } from '../../../constants';
 
+import RecommendedRaces from '../../../components/RecommendedRaces';
+
 export default function HomePage() {
 	const router = useRouter();
 
@@ -22,6 +24,7 @@ export default function HomePage() {
 				</p>
 			</div>
 			<div className="px-4 md:px-20 lg:px-32 space-y-4">
+				<RecommendedRaces />
 				{tools.map((tool) => (
 					<Card
 						onClick={() => router.push(tool.href)}

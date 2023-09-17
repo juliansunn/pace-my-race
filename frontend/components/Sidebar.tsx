@@ -33,14 +33,14 @@ const upperRoutes = [
 	{
 		label: 'Browse Events',
 		icon: Search,
-		href: '/search',
+		href: '/races',
 		color: '#52525b',
 		selectedColor: '#FF80E5FF'
 	},
 	{
 		label: 'My Events',
 		icon: Star,
-		href: '/races',
+		href: '/my-events',
 		color: '#52525b',
 		selectedColor: '#FF80E5FF'
 	},
