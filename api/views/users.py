@@ -21,6 +21,7 @@ class UserSerializer(serializers.ModelSerializer):
             "first_name",
             "last_name",
             "email",
+            "is_staff",
             "is_active",
             "date_joined",
             "last_login",
@@ -45,6 +46,7 @@ class Profile(generics.RetrieveAPIView):
 
 class UserViewSet(viewsets.ModelViewSet):
     serializer_class = UserSerializer
+    lookup_field = "clerk_id"
     permission_classes = [
         IsAuthenticated,
     ]
@@ -52,6 +54,20 @@ class UserViewSet(viewsets.ModelViewSet):
     def get_queryset(self):
         user = self.request.user
         return User.objects.all_visible_users_for_user(user)
+
+    def get_object(self):
+        clerk_id_lookup = self.kwargs.get(self.lookup_field)
+        queryset = self.filter_queryset(self.get_queryset())
+        try:
+            obj = queryset.get(clerk_id__iexact=clerk_id_lookup)
+        except User.DoesNotExist:
+            try:
+                obj = queryset.get(pk=clerk_id_lookup)
+            except User.DoesNotExist:
+                raise generics.NotFound()
+
+        self.check_object_permissions(self.request, obj)
+        return obj
 
     @action(detail=True, methods=["GET"])
     def races(self, request, pk=None):

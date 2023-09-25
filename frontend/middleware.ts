@@ -3,7 +3,7 @@ import { redirectToSignIn } from '@clerk/nextjs';
 
 export default authMiddleware({
 	publicRoutes: ['/', '/api/webhook'],
-	afterAuth(auth, req, evt) {
+	async afterAuth(auth, req, evt) {
 		// handle users who aren't authenticated
 		if (!auth.userId && !auth.isPublicRoute) {
 			return redirectToSignIn({ returnBackUrl: req.url });

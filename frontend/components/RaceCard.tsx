@@ -11,14 +11,16 @@ type Props = {
 
 const RaceCard = ({ race }: Props) => {
 	const router = useRouter();
+	const url =
+		'https://utfs.io/f/c74de36c-811f-4981-94bb-c4edeb569071_Santa-Cruz-Beach-Boardwalk-2.jpg';
 	return (
 		<Card
 			onClick={() => router.push(`/races/${race.id}`)}
 			key={race.id}
-			className="p-4 border-black/2 flex items-center justify-between hover:shadow-md transition cursor-pointer"
+			className="border-black/2 flex items-center hover:shadow-md transition cursor-pointer"
 		>
 			<div className="flex-none mr-4">
-				<img src={race.image} alt={race.name} className="w-16 h-16 rounded-full" />
+				<img src={url} alt={race.name} className="w-16 h-16 rounded-lg" />
 			</div>
 
 			<div className="flex flex-col justify-between">

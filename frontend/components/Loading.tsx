@@ -5,7 +5,7 @@ function Loading() {
 		<div className="flex items-center justify-center h-screen">
 			<div role="status">
 				<svg
-					className="inline mr-2 w-8 h-8 text-zinc-200 animate-spin dark:text-zinc-600 fill-green-500"
+					className="inline mr-2 w-8 h-8 text-zinc-200 animate-spin dark:text-zinc-600 fill-[#FF80E5FF]"
 					viewBox="0 0 100 101"
 					fill="none"
 					xmlns="http://www.w3.org/2000/svg"
