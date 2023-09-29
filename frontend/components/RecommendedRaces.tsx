@@ -8,7 +8,7 @@ import { fetchPaginatedRaces } from '../queries/races';
 import { useQuery } from 'react-query';
 
 const RecommendedRaces = () => {
-	const { data, error, isLoading } = useQuery('recommendedRaces', () =>
+	const { data, error, isLoading } = useQuery('recommended-races', () =>
 		fetchPaginatedRaces({ page: 1, page_size: 25 })
 	);
 	const recommendedRaces = data?.results;

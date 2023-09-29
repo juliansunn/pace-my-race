@@ -24,6 +24,7 @@ const RaceCard = ({ race }: Props) => {
 		onSuccess: () => {
 			queryClient.invalidateQueries('races');
 			queryClient.invalidateQueries('my-favorited-races');
+			queryClient.invalidateQueries('recommended-races');
 		}
 	});
 
@@ -34,6 +35,7 @@ const RaceCard = ({ race }: Props) => {
 		onSuccess: () => {
 			queryClient.invalidateQueries('races');
 			queryClient.invalidateQueries('my-favorited-races');
+			queryClient.invalidateQueries('recommended-races');
 		}
 	});
 
@@ -48,7 +50,7 @@ const RaceCard = ({ race }: Props) => {
 	return (
 		<Card
 			key={race.id}
-			className="border-black/2 flex hover:shadow-md transition max-h-24"
+			className="border-black/2 flex hover:shadow-[#2A7FFFFF] dark:hover:shadow-[#FF80E5FF]  dark:bg-inherit transition max-h-28 "
 		>
 			<div className="flex-none mr-4">
 				<img src={url} alt={race.name} className="w-24 h-24 rounded-l-lg" />
