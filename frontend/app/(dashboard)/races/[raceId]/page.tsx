@@ -42,7 +42,7 @@ const RaceDetails = ({ params: { raceId } }: Props) => {
 								<div className="flex flex-row space-x-2 text-zinc-800 dark:text-zinc-200">
 									<h1>{race.name}</h1>
 									<p className="whitespace-nowrap">
-										{race.participants.length} Participants
+										{race.participant_count} Participants
 									</p>
 									{race.registration_open ? (
 										<p className="whitespace-nowrap">Registration Open</p>

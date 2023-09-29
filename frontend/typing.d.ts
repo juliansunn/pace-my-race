@@ -9,7 +9,9 @@ interface Race {
 	race_start: Date;
 	type: string | null;
 	city: string | null;
-	participants: number[];
+	participant_count: number;
+	favorite_count: number;
+	is_favorite: boolean;
 }
 
 interface RacesResponse {

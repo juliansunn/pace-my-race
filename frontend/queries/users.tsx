@@ -1,3 +1,6 @@
+import { AxiosResponse } from 'axios';
+import axiosInstance from '../axios/axiosInstance';
+
 type User = {
 	id: string;
 	email: string;
@@ -14,6 +17,27 @@ export const fetchUser = async (id: string, token: string): Promise<User> => {
 		};
 		const response = await fetch(url, { headers });
 		return response.json();
+	} catch (error) {
+		throw error;
+	}
+};
+
+export const unfavoriteRace = async (id: number): Promise<any> => {
+	try {
+		const response: AxiosResponse<any> = await axiosInstance.post(
+			`/races/${id}/unfavorite/`
+		);
+		return response.data;
+	} catch (error) {
+		throw error;
+	}
+};
+export const favoriteRace = async (id: number): Promise<any> => {
+	try {
+		const response: AxiosResponse<any> = await axiosInstance.post(
+			`/races/${id}/favorite/`
+		);
+		return response.data;
 	} catch (error) {
 		throw error;
 	}
