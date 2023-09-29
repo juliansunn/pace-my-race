@@ -48,17 +48,17 @@ const RaceCard = ({ race }: Props) => {
 	return (
 		<Card
 			key={race.id}
-			className="border-black/2 flex hover:shadow-md transition"
+			className="border-black/2 flex hover:shadow-md transition max-h-24"
 		>
 			<div className="flex-none mr-4">
 				<img src={url} alt={race.name} className="w-24 h-24 rounded-l-lg" />
 			</div>
 
 			<div className="flex flex-col flex-grow mr-4 mt-2">
-				<div className="flex flex-row justify-between">
+				<div className="flex flex-row justify-between ">
 					<Link
 						href={`/races/${race.id}`}
-						className="text-xl font-bold cursor-pointer transition 300 hover:text-[#FF80E5FF]"
+						className="text-md lg:text-lg  font-bold cursor-pointer transition 300 hover:text-[#FF80E5FF] min-w-0"
 					>
 						{race.name}
 					</Link>

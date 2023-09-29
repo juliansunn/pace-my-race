@@ -23,7 +23,7 @@ export default function HomePage() {
 					Find the perfect pacer to your next PR.
 				</p>
 			</div>
-			<div className="px-4 md:px-20 lg:px-32 space-y-4">
+			<div className="px-4 space-y-4">
 				<RecommendedRaces />
 				{tools.map((tool) => (
 					<Card
