@@ -4,7 +4,6 @@ from api.models import (
     Race,
     City,
     Coach,
-    Pacer,
     RaceRegistration,
     RaceType,
     Group,
@@ -80,25 +79,6 @@ class RaceTypeFactory(factory.django.DjangoModelFactory):
         "random_element",
         elements=[choice[0] for choice in RaceType.RaceChoices.choices],
     )
-
-
-class PacerFactory(CoachFactory):
-    class Meta:
-        model = Pacer
-
-    @factory.post_generation
-    def distance_preferences(self, create, extracted, **kwargs):
-        if not create:
-            # Only handle the post-generation logic if creating an instance
-            return
-
-        if extracted:
-            if isinstance(extracted, (list, tuple)):
-                # If extracted is a list or tuple of RaceType instances, add them
-                self.distance_preferences.add(*extracted)
-            else:
-                # If extracted is a single RaceType instance, add it
-                self.distance_preferences.add(extracted)
 
 
 class RaceFactory(factory.django.DjangoModelFactory):

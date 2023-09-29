@@ -27,7 +27,6 @@ class UserAdmin(admin.ModelAdmin):
                 )
             },
         ),
-        # Add more fields if necessary
     )
     ordering = ("email",)
 
@@ -53,20 +52,15 @@ class CityAdmin(admin.ModelAdmin):
 
 
 @admin.register(models.Coach)
-class CityAdmin(admin.ModelAdmin):
-    pass
-
-
-@admin.register(models.Pacer)
-class CityAdmin(admin.ModelAdmin):
+class CoachAdmin(admin.ModelAdmin):
     pass
 
 
 @admin.register(models.RaceType)
-class CityAdmin(admin.ModelAdmin):
+class RaceTypeAdmin(admin.ModelAdmin):
     pass
 
 
 @admin.register(models.RaceRegistration)
-class CityAdmin(admin.ModelAdmin):
+class RaceRegistrationAdmin(admin.ModelAdmin):
     pass

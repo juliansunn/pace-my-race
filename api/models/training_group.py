@@ -29,7 +29,11 @@ class Group(models.Model):
         on_delete=models.SET_DEFAULT,
     )
     coached_by = models.ForeignKey(
-        "Coach", null=True, blank=True, on_delete=models.CASCADE
+        "Coach",
+        null=True,
+        blank=True,
+        related_name="coaching_groups",
+        on_delete=models.CASCADE,
     )
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -65,7 +69,13 @@ class TrainingGroup(Group):
 
 class PacingGroup(Group):
     pace_target = models.DurationField(null=True, blank=True, default=None)
-    pacers = models.ManyToManyField("Pacer", related_name="pacing_groups", blank=True)
+    pacers = models.ManyToManyField(
+        "api.Coach",
+        related_name="pacing_groups",
+        limit_choices_to={"coach_type": "PACE"},
+        blank=True,
+    )
 
-    def __str__(self):
-        return f"{self.race.name} Pacing Group"
+
+def __str__(self):
+    return f"{self.race.name} Pacing Group"

@@ -1,10 +1,9 @@
 from rest_framework import permissions, serializers, viewsets, parsers
 from rest_framework.decorators import action
 from rest_framework.response import Response
-from api.models.training_group import PacingGroup
+from api.models.coach import Coach
+from api.views.coaches import CoachSerializer
 from api.views.pagination import APIPaginator
-from api.views.users import UserSerializer
-from api.models.pacer import Pacer
 from api.models.race import Race
 from api.models.race_type import RaceType
 
@@ -15,24 +14,14 @@ class RaceTypeSerializer(serializers.ModelSerializer):
         fields = ("distance", "surface", "description", "distance_unit")
 
 
-class PacerSerializer(serializers.ModelSerializer):
-    user = UserSerializer(read_only=True)
-    distance_preferences = RaceTypeSerializer(many=True, read_only=True)
-
-    class Meta:
-        model = Pacer
-        fields = ("id", "bio", "expertise", "user", "distance_preferences")
-
-
 class PacerViewSet(viewsets.ModelViewSet):
-    model = PacingGroup
-    serializer_class = PacerSerializer
+    serializer_class = CoachSerializer
     permission_classes = [permissions.IsAuthenticated]
     pagination_class = APIPaginator
     parser_classes = [parsers.MultiPartParser, parsers.FormParser]
 
     def get_queryset(self):
-        qs = Pacer.objects.all()
+        qs = Coach.objects.filter(coach_type=Coach.CoachType.PACE)
         return qs
 
     def list(self, request, *args, **kwargs):

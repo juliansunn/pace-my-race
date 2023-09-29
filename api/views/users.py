@@ -12,6 +12,7 @@ from api.models.coach import Coach
 class UserSerializer(serializers.ModelSerializer):
     following = serializers.SerializerMethodField()
     followers = serializers.SerializerMethodField()
+    user_type = serializers.SerializerMethodField()
 
     class Meta:
         model = User
@@ -27,7 +28,15 @@ class UserSerializer(serializers.ModelSerializer):
             "last_login",
             "following",
             "followers",
+            "user_type",
         )
+
+    def get_user_type(self, obj):
+        if coach := obj.coach:
+            if coach.coach_type == Coach.CoachType.PACE:
+                return "pacer"
+            return "coach"
+        return "user"
 
     def get_following(self, obj):
         return list(obj.following.values("following_user_id", "created_at"))
@@ -74,14 +83,6 @@ class UserViewSet(viewsets.ModelViewSet):
         from api.views.races import RaceSerializer
 
         user = self.get_object()
-        print(user)
         races = Race.objects.filter(participants=user)
         serializer = RaceSerializer(races, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
-
-    # @action(detail=True, methods=['get'])
-    # def coaches(self, request, pk=None):
-    #     user = self.get_object()
-    #     coaches = Coach.objects.filter(user=user)
-    #     serializer = CoachSerializer(coaches, many=True)
-    #     return Response(serializer.data, status=status.HTTP_200_OK)

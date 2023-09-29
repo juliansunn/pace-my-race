@@ -12,7 +12,17 @@ class Coach(models.Model):
         EXPERT = 5, "Expert"
         PROFESSIONAL = 6, "Professional Runner"
 
-    user = models.ForeignKey("api.User", on_delete=models.CASCADE, related_name="coach")
+    class CoachType(models.TextChoices):
+        PACE = "PACE", "Pacer"
+        COACH = "COACH", "Coach"
+
+    coach_type = models.CharField(
+        max_length=50, choices=CoachType.choices, default=CoachType.COACH
+    )
+
+    user = models.OneToOneField(
+        "api.User", on_delete=models.CASCADE, related_name="coach"
+    )
     bio = models.TextField(blank=True)
     expertise = models.SmallIntegerField(
         max_length=2,
@@ -20,7 +30,9 @@ class Coach(models.Model):
         default=ExpertiseChoices.NONE,
         help_text="value to give a coaches experience for users to select against",
     )
-    # Other fields relevant to a coach's information
+    distance_preferences = models.ManyToManyField(
+        "RaceType", related_name="preferred_coaches", default=None
+    )
 
     def __str__(self):
-        return self.user.username
+        return f"{self.coach_type}: {self.user.username}"

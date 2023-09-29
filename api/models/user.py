@@ -31,17 +31,19 @@ class CustomUserManager(BaseUserManager):
             Q(coach__isnull=False) | Q(is_private=False) | Q(id__in=subquery_following)
         )
 
-    def create_user(self, email, **kwargs):
-        password = kwargs.get("password")
+    def create_user(self, email, password=None, **kwargs):
+        password = password or kwargs.get("password")
         clerk_id = kwargs.get("clerk_id")
         if clerk_id and not password:
             password = settings.DEFAULT_CLERK_PASSWORD
         if not email:
             raise ValueError(_("Users must have an email address"))
         email = self.normalize_email(email)
-        user = self.model(email=email, password=password, **kwargs)
-        user.set_password(password)
-        user.save()
+        user, _ = self.model.objects.get_or_create(email=email, **kwargs)
+        if password:
+            user.password = password
+            user.set_password(password)
+            user.save()
         return user
 
     def create_superuser(self, email, password, **kwargs):
@@ -54,7 +56,7 @@ class CustomUserManager(BaseUserManager):
         if kwargs.get("is_superuser") is not True:
             raise ValueError("Superuser must have is_superuser=True.")
 
-        return self.create_user(email, password, **kwargs)
+        return self.create_user(email, password=password, **kwargs)
 
 
 class User(AbstractUser):

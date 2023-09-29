@@ -61,7 +61,7 @@ class City(models.Model):
 
     state = models.IntegerField(choices=StateAbbreviation.choices)
     name = models.CharField(max_length=255)
-    zip_code = models.IntegerField(max_length=5, null=True, blank=True)
+    zip_code = models.IntegerField(null=True, blank=True)
     latitude = models.FloatField(null=True, blank=True)
     longitude = models.FloatField(null=True, blank=True)
 

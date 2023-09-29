@@ -4,7 +4,6 @@ import 'react-responsive-carousel/lib/styles/carousel.min.css'; // requires a lo
 
 import React, { useState } from 'react';
 import RaceCard from './RaceCard';
-import axiosInstance from '../axios/axiosInstance';
 import { fetchPaginatedRaces } from '../queries/races';
 import { useQuery } from 'react-query';
 
@@ -17,7 +16,9 @@ const RecommendedRaces = () => {
 	return (
 		<>
 			{recommendedRaces &&
-				recommendedRaces?.map((race: Race) => <RaceCard race={race} />)}
+				recommendedRaces?.map((race: Race) => (
+					<RaceCard key={race.id} race={race} />
+				))}
 		</>
 	);
 };

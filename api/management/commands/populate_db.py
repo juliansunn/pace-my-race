@@ -7,7 +7,6 @@ from api.fixtures.factories import (
     RaceFactory,
     RaceTypeFactory,
     CoachFactory,
-    PacerFactory,
     TrainingGroupFactory,
     PacingGroupFactory,
     UserFollowingFactory,
@@ -27,7 +26,6 @@ from api.fixtures.factories import (
     RaceFactory,
     RaceTypeFactory,
     CoachFactory,
-    PacerFactory,
     TrainingGroupFactory,
     PacingGroupFactory,
     UserFollowingFactory,
@@ -44,7 +42,6 @@ class Command(BaseCommand):
             (CityFactory, {"size": 10}),
             (UserFactory, {"size": 10}),
             (CoachFactory, {"size": 10}),
-            (PacerFactory, {"size": 10}),
             (TrainingGroupFactory, {"size": 10}),
             (PacingGroupFactory, {"size": 20}),
             (UserFollowingFactory, {"size": 100}),
@@ -58,14 +55,6 @@ class Command(BaseCommand):
             race = RaceFactory()
             participants = random.randint(*race_participant_ranges)
             race.participants.set(UserFactory.create_batch(participants))
-
-        num_pacers = 10
-        num_pacer_race_preferences = (1, 6)
-        for _ in tqdm(range(num_pacers), desc="Creating Pacers"):
-            race_types = RaceTypeFactory.create_batch(
-                random.randint(*num_pacer_race_preferences)
-            )
-            pacers = PacerFactory(distance_preferences=race_types)
 
         for factory_class, kwargs in tqdm(factories, desc="Creating data"):
             factory_class.create_batch(**kwargs)
