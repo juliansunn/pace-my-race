@@ -17,7 +17,7 @@ export default function HomePage() {
 					Find the perfect pacer to your next PR.
 				</p>
 			</div>
-			<div className="px-4 space-y-4">
+			<div className=" space-y-4">
 				<RecommendedRaces />
 			</div>
 		</div>

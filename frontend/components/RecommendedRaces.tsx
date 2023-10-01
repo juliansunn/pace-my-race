@@ -6,6 +6,7 @@ import React, { useState } from 'react';
 import RaceCard from './RaceCard';
 import { fetchPaginatedRaces } from '../queries/races';
 import { useQuery } from 'react-query';
+import Loading from './Loading';
 
 const RecommendedRaces = () => {
 	const { data, error, isLoading } = useQuery('recommended-races', () =>
@@ -15,10 +16,16 @@ const RecommendedRaces = () => {
 
 	return (
 		<div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-			{recommendedRaces &&
-				recommendedRaces?.map((race: Race) => (
-					<RaceCard key={race.id} race={race} />
-				))}
+			{isLoading ? (
+				<Loading />
+			) : (
+				<>
+					{recommendedRaces &&
+						recommendedRaces?.map((race: Race) => (
+							<RaceCard key={race.id} race={race} />
+						))}
+				</>
+			)}
 		</div>
 	);
 };

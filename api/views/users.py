@@ -32,7 +32,7 @@ class UserSerializer(serializers.ModelSerializer):
         )
 
     def get_user_type(self, obj):
-        if coach := obj.coach:
+        if coach := Coach.objects.filter(user=obj).first():
             if coach.coach_type == Coach.CoachType.PACE:
                 return "pacer"
             return "coach"
