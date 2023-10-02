@@ -5,7 +5,7 @@ from django.contrib.auth.models import User
 class Coach(models.Model):
     class ExpertiseChoices(models.IntegerChoices):
         NONE = 0, "None Specified"
-        NOVICE = 1, "None Specified"
+        NOVICE = 1, "Novice"
         BEGINNER = 2, "Beginner"
         INTERMEDIATE = 3, "Intermediate"
         ADVANCED = 4, "Advanced"
