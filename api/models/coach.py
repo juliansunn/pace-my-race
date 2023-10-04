@@ -16,8 +16,16 @@ class Coach(models.Model):
         PACE = "PACE", "Pacer"
         COACH = "COACH", "Coach"
 
+    class CoachStatus(models.TextChoices):
+        ACTIVE = "ACTIVE", "Active"
+        APPLIED = "APPLIED", "Applied"
+        INACTIVE = "INACTIVE", "Inactive"
+
     coach_type = models.CharField(
         max_length=50, choices=CoachType.choices, default=CoachType.COACH
+    )
+    status = models.CharField(
+        max_length=50, choices=CoachStatus.choices, default=CoachStatus.APPLIED
     )
 
     user = models.OneToOneField(

@@ -4,6 +4,7 @@ from django.contrib import admin
 from django.contrib.auth import get_user_model
 
 from . import models
+from api.models import Coach
 
 User = get_user_model()
 
@@ -51,9 +52,19 @@ class CityAdmin(admin.ModelAdmin):
     pass
 
 
-@admin.register(models.Coach)
+@admin.register(Coach)
 class CoachAdmin(admin.ModelAdmin):
-    pass
+    actions = ["set_coaches_active", "set_coaches_inactive"]
+
+    def set_coaches_active(self, request, queryset):
+        queryset.update(status=Coach.CoachStatus.ACTIVE)
+
+    set_coaches_active.short_description = "Set selected coaches to Active"
+
+    def set_coaches_inactive(self, request, queryset):
+        queryset.update(status=Coach.CoachStatus.INACTIVE)
+
+    set_coaches_inactive.short_description = "Set selected coaches to Inactive"
 
 
 @admin.register(models.RaceType)
